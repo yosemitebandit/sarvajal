@@ -13,8 +13,10 @@ some exercises for the sarvajal interview
 ## auth
  - sample config file is in conf/
  - copy this config file somewhere secure and edit the values
- - point the SARVAJAL-CONFIG env var to this file
+ - point the SARVAJAL_SETTINGS env var to this file
 
   ```
-  $ export SARVAJAL-CONFIG=/path/to/config/file.py
+  $ export SARVAJAL_SETTINGS=/path/to/config/file.py
   ```
+
+ - might want to drop that export line in .zshrc so the env var is set on load
