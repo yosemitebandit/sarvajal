@@ -20,11 +20,22 @@ try:
             host=DB['host']
             , port=DB['port']
             , user=DB['user']
-            , passwd=DB['password'])
-
+            , passwd=DB['password']
+            , db=DB['database_name'])
+    
+    '''
     cursor = conn.cursor()
     cursor.execute("SELECT VERSION()")
     print 'db version: %s' % cursor.fetchone()
+    '''
+
+    cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('''
+        SELECT * FROM %s WHERE p16 IS NOT NULL LIMIT 200
+        ''' % SOOCHAK_MESSAGES)
+    result = cursor.fetchall()
+    print result
+        
 
 except MySQLdb.Error, e:
     print 'error %d: %s' % (e.args[0], e.args[1])
