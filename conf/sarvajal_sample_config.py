@@ -11,10 +11,14 @@ DB = {
     , 'database_name': 'records'
 }
 
-# table for the 
-SOOCHAK_MESSAGES = 'sms_data_table'
+# tables and relevant fields for the soochak messages exercise
+SOOCHAK_MESSAGES_TABLE = 'sms_data_table'
+SOOCHAK_ERROR_CODES_TABLE = 'errors'
+SOOCHAK_ERROR_PARAMETER_FIELD = '10'
+SOOCHAK_ERROR_MEANING_FIELD = 'meaning'
 
-FRM_PRODUCTION = ''
+# table for the frm exercise
+FRM_PRODUCTION = 'frm_prod'
 
 # flask server settings
 SERVER_HOST = '127.0.0.1'
