@@ -8,4 +8,11 @@ DB = {
     , 'port': 7890
     , 'user': 'harveyDent2'
     , 'password': 'c0into55'
+    , 'database_name': 'records'
 }
+
+SOOCHAK_MESSAGES = 'sms_data_table'
+
+SERVER_HOST = '127.0.0.1'
+SERVER_PORT = 6060
+DEBUG = False

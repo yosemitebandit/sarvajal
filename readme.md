@@ -8,6 +8,7 @@ some exercises for the sarvajal interview
   ```
   $ sudo apt-get install python-dep python-mysqldb
   $ pip install -E /path/to/virtualenv/ MySQL-python
+  $ pip install -E /path/to/virtualenv/ flask
   ```
 
 ## auth
