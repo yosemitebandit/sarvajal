@@ -11,6 +11,13 @@ some exercises for the sarvajal interview
   $ pip install -E /path/to/virtualenv/ flask
   ```
 
+  - need to (hard) symlink some of the submodules' files
+
+  ```
+  $ ln lib/bootstrap/bootstrap.min.css serve/static/css
+  ```
+
+
 ## auth
  - sample config file is in conf/
  - copy this config file somewhere secure and edit the values
@@ -21,3 +28,7 @@ some exercises for the sarvajal interview
   ```
 
  - might want to drop that export line in .zshrc so the env var is set on load
+
+
+## nice-to-have
+ - caching of the db requests

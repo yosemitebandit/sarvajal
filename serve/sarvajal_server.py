@@ -29,7 +29,7 @@ def v1_messages():
         AND p4 IS NOT NULL
         AND p13 IS NOT NULL
         AND p19 IS NOT NULL
-        ORDER BY last_updated_on
+        ORDER BY last_updated_on DESC
         LIMIT 10
         ''' % app.config['SOOCHAK_MESSAGES'])
 
@@ -40,6 +40,13 @@ def v1_messages():
         row['last_updated_on'] = dt.strftime('%d %b %y %I:%M%p')
 
     return flask.jsonify({'data': result})
+
+
+@app.route('/messages', methods=['GET'])
+def show_messages():
+    ''' list the messages
+    '''
+    return flask.render_template('show_messages.html')
 
 
 def _create_db_connection():

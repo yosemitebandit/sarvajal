@@ -1,0 +1,69 @@
+{% extends "boilerplate.html" %}
+
+{% block head %}
+<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'></script>
+{#<script src="{{ url_for('static', filename='js/happy.js') }}"></script>#}
+{% endblock %}
+
+{% block body %}
+<div class='page-header'>
+  <h1>Soochak Messages
+    <small>ten most recent</small>
+  </h1>
+</div>
+
+<div class='row'>
+  <div id='table_target' class='span16'>
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block javascript %}
+<script>
+  $(function() {
+
+    $.ajax({
+      url: '/api/1/messages'
+      , dataType: 'json'
+      , success: function(response) {
+        // create and populate the table
+        // should throw in a check to see if the response has any data
+        var table_header = "<table class='zebra-striped'>"
+          + "<thead>"
+            + "<tr>"
+              + "<th>Timestamp</th>"
+              + "<th>Mobile No.</th>"
+              + "<th>p4</th>"
+              + "<th>p13</th>"
+              + "<th>p16</th>"
+              + "<th>p19</th>"
+            + "</tr>"
+          + "</thead>";
+
+        var table_body = "<tbody>";
+        for (message in response['data']) {
+          table_body += "<tr>"
+          + "<td>" + response['data'][message]['last_updated_on'] + "</td>"
+          + "<td>" + response['data'][message]['soochak_mobile_no'] + "</td>"
+          + "<td>" + response['data'][message]['p4'] + "</td>"
+          + "<td>" + response['data'][message]['p13'] + "</td>"
+          + "<td>" + response['data'][message]['p16'] + "</td>"
+          + "<td>" + response['data'][message]['p19'] + "</td>"
+          + "</tr>";
+        }
+        table_body += "</tbody></table>";
+
+        $('#table_target').html(table_header + table_body);
+
+      }
+      , error: function(error) {
+        console.log(error)
+      }
+    });
+
+  });
+</script>
+{% endblock %}
+
