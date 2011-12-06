@@ -1,0 +1,140 @@
+frm_subactivity_slave
+({
+    'frm_activity_master_id': 14L, 
+    'frm_subactivity_slave_id': 11L, 
+    'franchisee_spent_time': 1.0, 
+    'sarvajal_spent_time': 4.0, 
+    'frm_master_id': 6L},
+
+
+frm_area_tools_insert
+({
+    'frm_subactivity_slave_id': 11L, 
+    'frm_area_tools_master_id': 9L, 
+    'frm_area_tools_insert_id': 22L}, 
+
+    {'frm_subactivity_slave_id': 11L, 
+    'frm_area_tools_master_id': 6L, 
+    'frm_area_tools_insert_id': 23L})
+
+
+frm_area_tools_dropdown
+({
+    'frm_area_tools_dropdown': 5L, 
+    'frm_area_tools_master_id': 1L, 
+    'frm_activity_master_id': 9L}, 
+    
+    {'frm_area_tools_dropdown': 6L, 
+    'frm_area_tools_master_id': 6L, 
+    'frm_activity_master_id': 9L})
+
+
+
+frm_activity_master
+({
+    'status': 1, 
+    'frm_activity_name': 'Launch', 
+    'frm_activity_code': 'LC', 
+    'frm_form_type_master_id': 1L, 
+    'frm_involvement_type_master_id': 1L, 
+    'frm_activity_master_id': 1L, 
+    'frm_parent_id': '0'}, 
+
+
+
+frm_master
+({
+    'status': 1, 
+    'frm_customer_feedback_franchisee': None, 
+    'frm_machine_condition': None, 
+    'frm_insert_date_time': datetime.datetime(2011, 8, 17, 17, 47, 14), 
+    'frm_place_id': 130L, 
+    'frm_franchisee_participation': None, 
+    'frm_remark_type': None, 
+    'frm_code': '1313583434', 
+    'frm_master_id': 4L, 
+    'frm_franchisee_or_lead_remark': '1. FRM sahyog ki aavsayakta hai .', 
+    'frm_water_quality': None,
+    'frm_remark': '1. machine ke niche wali lohe ki frem par bahut adik jang laga huaa. is ke upar pent kiya jana chaihiye jisse frem ko galne se bachaya ja sake.\r\n2. yaha ke ROW water ka TDS leval kam hua hai isska karn barish ka pani bor well me dala jana hai .', 
+    'frm_spent_time': '21', 
+    'frm_franchisee_remark_type': None, 
+    'frm_customer_feedback_service': None, 
+    'frm_date': datetime.datetime(2011, 8, 17, 0, 0), 
+    'frm_activity_master_id': 2L}, 
+
+
+ro_plant
+({
+    'set_comman_time_high': 150.0, 
+    'calibration_source_tds': 2000L, 
+    'set_pt_differential_max': 245L, 
+    'high_flow_rate': 120L, 
+    'set_backwash_time_min': 15L, 
+    'product_tds_current': 0L, 
+    'calibration_post_membrane_pressure': 16L, 
+    'set_comman_time_low': 150.0, 
+    'pressure_diff': 0.0, 
+    'ro_plant_id': 1L, 
+    'set_flush_valve_on_time': 100.0, 
+    'machine_power': '0', 
+    'ping_enable_disable_2': '1000', 
+    'ping_enable_disable_1': '1001111', 
+    'set_tds_trip_delay': 30.0, 
+    'set_rinse_time_min': 10L, 
+    'account_id': 40L, 
+    'calibration_product_tds': 1500L, 
+    'switch_uv': '2', 
+    'backwash_start': '0', 
+    'session_time': datetime.timedelta(0, 207), 
+    'set_tds_trip_min': 0L,
+    'machine_type': None, 
+    'calibration_product_flow': 195L, 
+    'calibration_pre_membrane_pressure': 16L, 
+    'high_tds': 0L, 
+    'machine_id': 703510002L, 
+    'soochak_security_seal': None, 
+    'set_lps_trip_delay': 150.0
+    'machine_phone': '1234567890', 
+    'set_lps_start_delay': 150.0, 
+    'set_tds_trip_max': 150L, 
+    'set_hps_trip': 16.0}
+
+
+frm_qsc_question_slave
+({
+    'answer_point': -1L, 
+    'frm_qsc_question_slave_id': 41L, 
+    'frm_master_id': 4L, 
+    'input_type': None, 
+    'answer_4': None, 
+    'answer_5': None, 
+    'frm_qsc_question_master_id': 1L, 
+    'answer_3': None, 
+    'answer_2': None, 
+    'answer_1': 3000L}, 
+
+
+
+soochak_report_data
+({
+    'city': 'Anyol', 
+    'balance': '39496', 
+    'controller_status': '1', 
+    'liters_sold_for_day': '1259', 
+    'balance_dy_bfr_yesterday': '40782', 
+    'total_liters_till_date': '2170', 
+    'report_date': datetime.date(2011, 9, 1), 
+    'soochak_report_data_id': 55117L, 
+    'total_liters_till_yesterday': '97038', 
+    'used_balance': '1286', 
+    'machine_id': 1001010034L}, 
+
+
+
+frm_form_type_master
+({
+    'status': 1, 
+    'frm_form_type_master_id': 2L, 
+    'frm_table_associated_name': 'frm_duedilligence_master', 
+    'frm_form_type_name': 'Due Diligence'})
+

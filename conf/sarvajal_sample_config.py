@@ -11,8 +11,12 @@ DB = {
     , 'database_name': 'records'
 }
 
+# table for the 
 SOOCHAK_MESSAGES = 'sms_data_table'
 
+FRM_PRODUCTION = ''
+
+# flask server settings
 SERVER_HOST = '127.0.0.1'
 SERVER_PORT = 6060
 DEBUG = False

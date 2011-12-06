@@ -26,3 +26,4 @@ some exercises for the sarvajal interview
 
 ## nice-to-have
  - caching of the db requests
+ - filters/queries on the api

@@ -28,13 +28,25 @@ try:
     cursor.execute("SELECT VERSION()")
     print 'db version: %s' % cursor.fetchone()
     '''
-
+    
+    '''
     cursor = conn.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('''
-        SELECT * FROM %s WHERE p16 IS NOT NULL LIMIT 200
-        ''' % SOOCHAK_MESSAGES)
+    cursor.execute('SELECT * FROM %s WHERE p16 IS NOT NULL LIMIT 200' % SOOCHAK_MESSAGES)
     result = cursor.fetchall()
     print result
+    '''
+
+    # frm testing
+    cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('''
+        SELECT *
+        FROM %s
+        LIMIT 2
+        ''' % FRM_PRODUCTION)
+    result = cursor.fetchall()
+    print FRM_PRODUCTION
+    print result
+    print '\n\n'
         
 
 except MySQLdb.Error, e:
