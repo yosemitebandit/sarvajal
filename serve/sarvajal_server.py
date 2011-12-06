@@ -25,10 +25,10 @@ def v1_messages():
     cursor.execute('''
         SELECT * 
         FROM %s 
-        WHERE p16 IS NOT NULL 
-        AND p4 IS NOT NULL
-        AND p13 IS NOT NULL
-        AND p19 IS NOT NULL
+        WHERE p15 IS NOT NULL 
+        AND p16 IS NOT NULL
+        AND p17 IS NOT NULL
+        AND p1 IS NOT NULL
         ORDER BY last_updated_on DESC
         LIMIT 10
         ''' % app.config['SOOCHAK_MESSAGES'])

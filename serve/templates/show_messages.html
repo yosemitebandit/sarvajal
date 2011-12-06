@@ -3,18 +3,19 @@
 {% block head %}
 <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'></script>
 {#<script src="{{ url_for('static', filename='js/happy.js') }}"></script>#}
+<script src="{{ url_for('static', filename='js/spin.js') }}"></script>
 {% endblock %}
 
 {% block body %}
 <div class='page-header'>
-  <h1>Soochak Messages
-    <small>ten most recent</small>
-  </h1>
+    <h1>Soochak Messages
+        <small>ten most recent</small>
+    </h1>
 </div>
 
 <div class='row'>
-  <div id='table_target' class='span16'>
-  </div>
+    <div id='table_target' class='span16'>
+    </div>
 </div>
 
 {% endblock %}
@@ -22,48 +23,72 @@
 
 {% block javascript %}
 <script>
-  $(function() {
+    $(function() {
+        // spin while we're waiting to populate the table
+        var opts = {
+            lines: 6
+            , length: 7
+            , width: 4
+            , radius: 10
+            , color: '#000'
+            , speed: 1
+            , trail: 60
+            , shadow: false
+        };
+        var target = document.getElementById('table_target');
+        var spinner = new Spinner(opts).spin();
+        var spinner_container = target.appendChild(spinner.el);
+        $(spinner_container).css({'margin': '25px 0 0 25px'});
 
-    $.ajax({
-      url: '/api/1/messages'
-      , dataType: 'json'
-      , success: function(response) {
-        // create and populate the table
-        // should throw in a check to see if the response has any data
-        var table_header = "<table class='zebra-striped'>"
-          + "<thead>"
-            + "<tr>"
-              + "<th>Timestamp</th>"
-              + "<th>Mobile No.</th>"
-              + "<th>p4</th>"
-              + "<th>p13</th>"
-              + "<th>p16</th>"
-              + "<th>p19</th>"
-            + "</tr>"
-          + "</thead>";
+        $.ajax({
+            url: '/api/1/messages'
+            , dataType: 'json'
+            , success: function(response) {
+                // remove the spinner
+                spinner.stop();
 
-        var table_body = "<tbody>";
-        for (message in response['data']) {
-          table_body += "<tr>"
-          + "<td>" + response['data'][message]['last_updated_on'] + "</td>"
-          + "<td>" + response['data'][message]['soochak_mobile_no'] + "</td>"
-          + "<td>" + response['data'][message]['p4'] + "</td>"
-          + "<td>" + response['data'][message]['p13'] + "</td>"
-          + "<td>" + response['data'][message]['p16'] + "</td>"
-          + "<td>" + response['data'][message]['p19'] + "</td>"
-          + "</tr>";
-        }
-        table_body += "</tbody></table>";
+                // create and populate the table
+                // should throw in a check to see if the response has any data
+                var table_header = "<table class='zebra-striped'>"
+                    + "<thead>"
+                        + "<tr>"
+                            + "<th>Timestamp</th>"
+                            + "<th>Mobile No.</th>"
+                            + "<th>Machine ID</th>"
+                            + "<th>Pre-Membrane Pressure</th>"
+                            + "<th>Post-Membrane Pressure</th>"
+                            + "<th>Error Code</th>"
+                            + "<th>Enable/Disable Status 1</th>"
+                            + "<th>Enable/Disable Status 2</th>"
+                            + "<th>Enable/Disable Status 3</th>"
+                            + "</tr>"
+                        + "</thead>";
 
-        $('#table_target').html(table_header + table_body);
+                    var table_body = "<tbody>";
+                        for (message in response['data']) {
+                            table_body += "<tr>"
+                                + "<td>" + response['data'][message]['last_updated_on'] + "</td>"
+                                + "<td>" + response['data'][message]['soochak_mobile_no'] + "</td>"
+                                + "<td>" + response['data'][message]['p1'] + "</td>"
+                                + "<td>" + response['data'][message]['p15'] + "</td>"
+                                + "<td>" + response['data'][message]['p16'] + "</td>"
+                                + "<td>" + response['data'][message]['p17'] + "</td>"
+                                + "<td>" + response['data'][message]['p29'] + "</td>"
+                                + "<td>" + response['data'][message]['p30'] + "</td>"
+                                + "<td>" + response['data'][message]['p59'] + "</td>"
+                                + "</tr>";
+                        }
+                        table_body += "</tbody></table>";
 
-      }
-      , error: function(error) {
-        console.log(error)
-      }
+                $('#table_target').html(table_header + table_body);
+
+            }
+            , error: function(error) {
+                console.log(error)
+            }
+        });
+
     });
-
-  });
 </script>
 {% endblock %}
 
