@@ -11,6 +11,13 @@ some exercises for the sarvajal interview
   $ pip install -E /path/to/virtualenv/ flask
   ```
 
+ - running this behind gunicorn with supervisord?  see the relevant config files
+
+ ```
+ $ pip install -E /path/to/virtualenv/ gunicorn
+ $ sudo pip install supervisor
+ ```
+
 
 ## auth
  - sample config file is in conf/
