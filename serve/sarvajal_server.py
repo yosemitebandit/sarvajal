@@ -114,40 +114,6 @@ def v1_account_id(account_id):
     return flask.jsonify({'data': data_result})
 
 
-@app.route('/api/1/frm', methods=['GET'])
-def v1_frm():
-    ''' accessing the frm production and interaction data
-    '''
-    conn = _create_db_connection()
-
-    cursor = conn.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('''
-        SELECT * 
-        FROM %s
-        WHERE p15 IS NOT NULL 
-        AND p1 IS NOT NULL
-        ORDER BY last_updated_on DESC
-        LIMIT 10
-        ''', (conn.escape_string(app.config['FRM_PRODUCTION'])
-            , )
-        )
-
-    result = cursor.fetchall()  # returns a tuple
-    for row in result:
-        # convert the datetimes so the row is json-serializable
-        dt = row['last_updated_on']
-        row['last_updated_on'] = dt.strftime('%d %b %y %I:%M%p')
-        
-        # convert the enable/disable hex values to binary
-        row['p29'] = _hex_to_bin(row['p29'])
-        row['p30'] = _hex_to_bin(row['p30'])
-        row['p59'] = _hex_to_bin(row['p59'])
-
-    return flask.jsonify({'data': result})
-
-
-
-
 ''' rendering endpoints
 '''
 @app.route('/messages', methods=['GET'])
