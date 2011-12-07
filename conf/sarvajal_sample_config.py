@@ -17,8 +17,17 @@ SOOCHAK_ERROR_CODES_TABLE = 'errors'
 SOOCHAK_ERROR_PARAMETER_FIELD = '10'
 SOOCHAK_ERROR_MEANING_FIELD = 'meaning'
 
-# table for the frm exercise
-FRM_PRODUCTION = 'frm_prod'
+
+# tables for the frm exercise
+# provides accountID --> machineID mapping
+FRM_ACCOUNT_DATA_TABLE = 'frm_account'
+FRM_ACCOUNT_ID_FIELD = 'account' 
+FRM_MACHINE_ID_FIELD = 'machine' 
+# participation data
+FRM_PARTICIPATION_TABLE = 'frm_particip'
+# production data
+FRM_PRODUCTION_TABLE = 'frm_prod'
+
 
 # flask server settings
 SERVER_HOST = '127.0.0.1'
