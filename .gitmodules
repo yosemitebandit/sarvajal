@@ -4,3 +4,6 @@
 [submodule "lib/spin.js"]
 	path = lib/spin.js
 	url = git://github.com/fgnass/spin.js.git
+[submodule "lib/flot"]
+	path = lib/flot
+	url = git://github.com/flot/flot.git

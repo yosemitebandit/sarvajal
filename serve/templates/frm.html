@@ -2,19 +2,32 @@
 
 {% block head %}
 <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'></script>
-{#<script src="{{ url_for('static', filename='js/happy.js') }}"></script>#}
 <script src="{{ url_for('static', filename='js/spin.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.flot.js') }}"></script>
 {% endblock %}
 
 {% block body %}
 <div class='page-header'>
-    <h1>Soochak Messages
-        <small>ten most recent</small>
+    <h1>FRM Data
+        <small>please select an Account ID</small>
     </h1>
 </div>
 
 <div class='row'>
-    <div id='table_target' class='span16'>
+    <div class='span10' id='input_target'>
+        <form>
+            <fieldset>
+                <div class='clearfix' id='account_id_input_container'>
+                </div>  <!--/clearfix-->
+            </fieldset>
+        </form>
+    </div>
+</div>  <!--/row-->
+
+
+<div class='row'>
+    <div class='span14 offset1'>
+        <div id='chart_target' style='height:300px;'></div>
     </div>
 </div>
 
@@ -24,7 +37,7 @@
 {% block javascript %}
 <script>
     $(function() {
-        // spin while we're waiting to populate the table
+        // spin while we're waiting to populate the selections
         var opts = {
             lines: 6
             , length: 7
@@ -35,58 +48,108 @@
             , trail: 60
             , shadow: false
         };
-        var target = document.getElementById('table_target');
+        var target = document.getElementById('input_target');
         var spinner = new Spinner(opts).spin();
         var spinner_container = target.appendChild(spinner.el);
-        $(spinner_container).css({'margin': '25px 0 0 25px'});
+        $(spinner_container).css({'margin': '15px 0 0 45px'});
 
         $.ajax({
-            url: '/api/1/messages'
-            , dataType: 'json'
+            url: '/api/1/accounts'
+            , datatype: 'json'
             , success: function(response) {
+                var input_header = "<label for='account_id_input'>Account ID</label>"
+                    + "<div class='input'>"
+                        + "<select class='small' name='account_id_input' id='account_id_input'>";
+                // options injected in between the 'header' and 'finale'
+                var input_finale = "</select>"
+                    + "</div>"
+                    + "<span class='help-block' id='account_id_input_help'></span>";
+                
+                var input_options = '';
+                for (account in response['data']) {
+                    var option = "<option>" + response['data'][account]['account_id'] + "</option>";
+                    input_options += option;
+                }
+
                 // remove the spinner
                 spinner.stop();
+                // populate the container
+                $('#account_id_input_container').html(input_header + input_options + input_finale);
+                
+                
+                // register a handler for when the selection changes
+                $('select').change(function() {
+                    // blow away any lingering plots
+                    $('#chart_target').empty();
 
-                // create and populate the table
-                // should throw in a check to see if the response has any data
-                var table_header = "<table class='zebra-striped'>"
-                    + "<thead>"
-                        + "<tr>"
-                            + "<th>Timestamp</th>"
-                            + "<th>Mobile No.</th>"
-                            + "<th>Machine ID</th>"
-                            + "<th>Pre-Membrane Pressure</th>"
-                            + "<th>Post-Membrane Pressure</th>"
-                            + "<th>Error</th>"
-                            + "<th>Enable/Disable Status 1</th>"
-                            + "<th>Enable/Disable Status 2</th>"
-                            + "<th>Enable/Disable Status 3</th>"
-                            + "</tr>"
-                        + "</thead>";
+                    // create a spinner as the chart is populated
+                    var target = document.getElementById('chart_target');
+                    var spinner = new Spinner(opts).spin();
+                    var spinner_container = target.appendChild(spinner.el);
+                    $(spinner_container).css({'margin': '15px 0 0 45px'});
 
-                    var table_body = "<tbody>";
-                        for (message in response['data']) {
-                            table_body += "<tr>"
-                                + "<td>" + response['data'][message]['last_updated_on'] + "</td>"
-                                + "<td>" + response['data'][message]['soochak_mobile_no'] + "</td>"
-                                + "<td>" + response['data'][message]['p1'] + "</td>"
-                                + "<td>" + response['data'][message]['p15'] + "</td>"
-                                + "<td>" + response['data'][message]['p16'] + "</td>"
-                                + "<td>" + response['data'][message]['parameter_sub_value_meaning'] + "</td>"
-                                + "<td>" + response['data'][message]['p29'] + "</td>"
-                                + "<td>" + response['data'][message]['p30'] + "</td>"
-                                + "<td>" + response['data'][message]['p59'] + "</td>"
-                                + "</tr>";
+                    $.ajax({
+                        url: '/api/1/accounts/' + $('#account_id_input').val()
+                        , datatype: 'json'
+                        , success: function(response) {
+                            // remove the chart spinner
+                            spinner.stop();
+
+                            var d = response.data;
+                            if (d.length < 1) {
+                                $('#chart_target').html(
+                                    '<h4>no data available for this Account ID, sorry.</h4>'
+                                    + '<h4>try Account ID 12</h4>'
+                                );
+                            } else {
+                                // flot is very particular..
+                                // wants to see timeseries: [ [time1, value1], [time2, value2] ..]
+                                // so form this series from the response data:
+                                var timeseries = [];
+                                for (i in d) {
+                                    if (d[i]['liters_sold_for_day'] == '---') {
+                                        var point = [d[i]['report_date_epoch_ms'], null];
+                                    } else {
+                                        var point = [d[i]['report_date_epoch_ms'], d[i]['liters_sold_for_day']];
+                                    }
+                                    timeseries.push(point);
+                                }
+
+                                var plot_options = {
+                                    series: {
+                                        lines: {show: true, lineWidth: 1, fill: true}
+                                        , points: {show: true}
+                                    }
+                                    , xaxis: {mode: 'time', tickLength: 5}
+                                    , yaxis: {min: 0}
+                                };
+
+                                var fullness_color = '#0330AB';
+                                var plot = $.plot($('#chart_target')
+                                    , [{data: timeseries, color: fullness_color}]
+                                    , plot_options)
+
+                                $('#chart_target').prepend("<h4>Liters sold</h4>");
+
+                                $('#chart_target').append(
+                                    "<h4>No data visible or seeing gaps?</h4>"  
+                                    + "<h4>The Soochak may have reported null values ('---')</h4>"
+                                );
+                                
+                            }
                         }
-                        table_body += "</tbody></table>";
-
-                $('#table_target').html(table_header + table_body);
+                        , error : function(response) {
+                            console.log(response);
+                        }
+                    });
+                });
 
             }
-            , error: function(error) {
-                console.log(error)
+            , error: function(response) {
+                console.log(response);
             }
         });
+
 
     });
 </script>

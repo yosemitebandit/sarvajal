@@ -3,6 +3,7 @@
 sarvajal_server.py
 api endpoints for the sarvajal data
 '''
+import calendar
 import datetime
 import sys
 
@@ -53,8 +54,27 @@ def v1_messages():
     return flask.jsonify({'data': result})
 
 
+@app.route('/api/1/accounts', methods=['GET'])
+def v1_accounts():
+    ''' return all available account IDs
+    '''
+    conn = _create_db_connection()
+
+    cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('''
+        SELECT account_id
+        FROM %s
+        ORDER BY account_id ASC
+        ''' % (conn.escape_string(app.config['FRM_ACCOUNT_DATA_TABLE'])
+            , )
+        )
+    result = cursor.fetchall()
+
+    return flask.jsonify({'data': result})
+
+
 @app.route('/api/1/accounts/<account_id>', methods=['GET'])
-def v1_accounts(account_id):
+def v1_account_id(account_id):
     ''' access account data by ID
     connect this to the report data
     '''
@@ -85,6 +105,9 @@ def v1_accounts(account_id):
         # convert the datetimes so the row is json-serializable
         dt = row['report_date']
         row['report_date'] = dt.strftime('%d %b %y %I:%M%p')
+        # add in a utc milliseconds value for plotting
+        # could use some timezone-correction here..
+        row['report_date_epoch_ms'] = 1000*calendar.timegm(dt.timetuple())
         # convert the timedeltas so the row is json-serializable
         row['session_time'] = str(row['session_time'])
 
