@@ -9,7 +9,7 @@
 {% block body %}
 <div class='page-header'>
     <h1>FRM Data
-        <small>please select an Account ID</small>
+        <small>liters sold per day</small>
     </h1>
 </div>
 
@@ -95,7 +95,7 @@
                             // remove the chart spinner
                             spinner.stop();
 
-                            var d = response.data;
+                            d = response.data;  // tentative globalization so the tooltip fn can see it
                             if (d.length < 1) {
                                 $('#chart_target').html(
                                     '<h4>no data available for this Account ID, sorry.</h4>'
@@ -120,6 +120,7 @@
                                         lines: {show: true, lineWidth: 1, fill: true}
                                         , points: {show: true}
                                     }
+                                    , grid: {clickable: true, hoverable: true}
                                     , xaxis: {mode: 'time', tickLength: 5}
                                     , yaxis: {min: 0}
                                 };
@@ -129,11 +130,9 @@
                                     , [{data: timeseries, color: fullness_color}]
                                     , plot_options)
 
-                                $('#chart_target').prepend("<h4>Liters sold</h4>");
 
                                 $('#chart_target').append(
-                                    "<h4>No data visible or seeing gaps?</h4>"  
-                                    + "<h4>The Soochak may have reported null values ('---')</h4>"
+                                     "<h4>No data visible or seeing gaps?  The Soochak may have reported null values ('---')</h4>"
                                 );
                                 
                             }
@@ -150,6 +149,40 @@
             }
         });
 
+        function showTooltip(x, y, contents) {
+            // from the flot example on the matter
+            $('<div id="tooltip">' + contents + '</div>').css( {
+                position: 'absolute',
+                display: 'none',
+                top: y + 5,
+                left: x + 5,
+                border: '1px solid #fdd',
+                padding: '2px',
+                'background-color': '#fee',
+                opacity: 0.80
+            }).appendTo("body").fadeIn(200);
+        }
+
+        var previousPoint = null;
+        $("#chart_target").bind("plothover", function (event, pos, item) {
+            if (item) {
+                if (previousPoint != item.dataIndex) {
+                    previousPoint = item.dataIndex;
+
+                    $("#tooltip").remove();
+                    var x = item.datapoint[0].toFixed(2),
+                    y = item.datapoint[1].toFixed(2);
+
+                    showTooltip(item.pageX
+                        , item.pageY
+                        , 'session time: ' + d[item.dataIndex]['session_time']);
+                }
+            }
+            else {
+                $("#tooltip").remove();
+                previousPoint = null;
+            }
+        });
 
     });
 </script>
