@@ -28,10 +28,6 @@ def v1_messages():
         FROM %s messages
         LEFT JOIN %s errors
         ON messages.%s = errors.%s
-        WHERE p15 IS NOT NULL
-        AND p16 IS NOT NULL
-        AND p17 IS NOT NULL
-        AND p1 IS NOT NULL
         ORDER BY last_updated_on DESC
         LIMIT 10
         ''' % (conn.escape_string(app.config['SOOCHAK_MESSAGES_TABLE'])
