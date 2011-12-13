@@ -41,11 +41,12 @@ try:
     cursor.execute('''
         SELECT *
         FROM %s
-        LIMIT 2
         ''' % FRM_PRODUCTION)
     result = cursor.fetchall()
     print FRM_PRODUCTION
-    print result
+    for r in result:
+        print '%-5s %-40s' % (r['soochak_parameter_subvalue_id']
+                , r['parameter_sub_value_meaning'])
     print '\n\n'
         
 

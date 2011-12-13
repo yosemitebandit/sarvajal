@@ -138,3 +138,103 @@ frm_form_type_master
     'frm_table_associated_name': 'frm_duedilligence_master', 
     'frm_form_type_name': 'Due Diligence'})
 
+
+soochak_message_ts_parameter_slave
+p1    Machine ID                               0
+p2    Remaining Balance                        0
+p3    Date of SMS                              0
+p4    Time of SMS                              0
+p5    Total Liters Produced                    0
+p6    Expiration Date                          0
+p7    System Status                            1
+p8    Time till Backwash                       0
+p9    Average Source TDS                       0
+p10   Session End Method                       1
+p11   Power Status                             1
+p12   Session Water Filtered                   0
+p13   Session Reject Water                     0
+p14   Average Product TDS                      0
+p15   Average Pre-Membrane Pressure            0
+p16   Average Post Membrane Pressure           0
+p17   Error Code                               1
+p18   Session Time                             0
+p19   Flow Sensor Enabled                      0
+p20   Flow Sensor Error                        0
+p21   Current Scheduled Maintenance Date       0
+p22   Login Status                             1
+p23   Product Flow Sensor Calibration          0
+p24   Reject Flow Sensor Calibration           0
+p25   Pre-Membrane Transmitter Calibration     0
+p26   Post-Membrane Transmitter Calibration    0
+p27   Product TDS Sensor Calibration           0
+p28   Source TDS Sensor Calibration            0
+p29   Enable/Disable Status 1                  2
+p30   Enable/Disable Status 2                  2
+p31   Backwash Duration Time (mins)            0
+p32   Rinse Duration Time (mins)               0
+p33   Membrane Flush Timer (ms)                0
+p34   Backwash Requirement Timer (ms)          0
+p35   Source TDS Max (ppm)                     0
+p36   Max Product TDS (ppm)                    0
+p37   Min Product TDS (ppm)                    0
+p38   HPS Set Point (bar)                      0
+p39   Differtial Pressure (bar)                0
+p40   TDS Trip Delay (ms)                      0
+p41   LPS Start Delay (ms)                     0
+p42   LPS Trip Delay (ms)                      0
+p43   HPP Start Delay (ms)                     0
+p44   Trip Timer (Low Set Points) (ms)         0
+p45   Trip Timer (High Set Points) (ms)        0
+p46   Average Product Water Flow               0
+p47   Average Reject Water Flow                0
+p48   Pre-Post Membrane Pressure Set Point     0
+p49   Pre-Mid Membrane Pressure Set Point      0
+p50   Mid-Post Membrane Pressure Set Point     0
+p51   Mid Pressure Calibration                 0
+p52   Average Mid Pressure                     0
+p53   Trip Status                              1
+p54   Product Flow Rate                        0
+p55   Reject Flow Rate                         0
+p56   HPP Start Delay                          0
+p57   Product TDS Min Setpoint                 0
+p58   Backwash Requirement Timer(Mins)         0
+p59   Enable/Disable Status 3                  2
+
+
+
+soochak_message_ts_parameter_slave_sub_value
+soochak_parameter_subvalue_id, parameter_sub_value_meaning
+1     SYSTEM ENABLED / PLANT IS NOT RUNNING   
+2     SYSTEM DISABLED                         
+3     SYSTEM ENABLED / PLANT IS RUNNING       
+4     Switch                                  
+5     Stop                                    
+6     Trip                                    
+7     Battery                                 
+8     Grid Powered                            
+9     High Product TDS                        
+10    High Source TDS                         
+11    Low Product TDS                         
+12    High Differential Pressure              
+13    Low Water Pressure                      
+14    High Discharge Pressure                 
+15    Raw Water Pump Overload                 
+16    High Pressure Pump Overload             
+17    Low Dosing Tank Level                   
+18    High Product Water Storage Tank Level   
+19    Super admin                             
+20    Admin                                   
+21    Technician - 1                          
+22    Technician - 2                          
+23    Technician - 3                          
+24    Pre-Post Membrane Trip                  
+25    Pre-Mid Membrane Trip                   
+26    Mid-Post Membrane Trip                  
+27    Pre-Post Membrane Trip                  
+28    Pre-Mid Membrane Trip                   
+29    Mid-Post Membrane Trip                  
+30    No Error                                
+31    UV Tube Failure Trip                    
+32    Flow Ratio Trip                         
+33    Low Raw Water Storage Tank Level        
+34    Plant Reset
